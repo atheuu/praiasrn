@@ -3,27 +3,15 @@
 import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 
-declare global {
-  interface Window {
-    google: any;
-    initMap: () => void;
-  }
-}
-
 export function MapSection() {
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Load Google Maps Script
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=initMap`;
-    script.async = true;
-    script.defer = true;
-
-    window.initMap = () => {
+    // Função de inicialização do mapa
+    const initMap = () => {
       if (mapRef.current) {
-        const map = new window.google.maps.Map(mapRef.current, {
-          center: { lat: -5.7793, lng: -35.2009 }, // Natal, RN coordinates
+        const map = new google.maps.Map(mapRef.current, {
+          center: { lat: -5.7793, lng: -35.2009 }, // Coordenadas de Natal, RN
           zoom: 10,
           styles: [
             {
@@ -39,7 +27,7 @@ export function MapSection() {
           ],
         });
 
-        // Add markers for featured locations
+        // Adiciona marcadores para locais em destaque
         const locations = [
           { position: { lat: -6.2308, lng: -35.0486 }, title: "Praia de Pipa" },
           {
@@ -53,7 +41,7 @@ export function MapSection() {
         ];
 
         locations.forEach((location) => {
-          new window.google.maps.Marker({
+          new google.maps.Marker({
             position: location.position,
             map,
             title: location.title,
@@ -62,9 +50,19 @@ export function MapSection() {
       }
     };
 
+    // Carrega o script do Google Maps
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+
+    // Define a função de callback global
+    (window as any).initMap = initMap;
+
     document.head.appendChild(script);
 
     return () => {
+      // Remove o script ao desmontar o componente
       document.head.removeChild(script);
     };
   }, []);

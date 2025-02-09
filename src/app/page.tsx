@@ -3,6 +3,7 @@ import { FeaturedPlaces } from "@/components/featured-places";
 import { MapSection } from "@/components/map-section";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -10,10 +11,12 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center justify-center">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="/pexels-murilo-fonseca-123879922-10647766.jpg"
             alt="Praias do RN"
-            className="w-full h-full object-cover"
+            layout="fill"
+            objectFit="cover"
+            priority
           />
           <div className="absolute inset-0 bg-black/40" />
         </div>
