@@ -14,9 +14,11 @@ export default function Home() {
           <Image
             src="/pexels-murilo-fonseca-123879922-10647766.jpg"
             alt="Praias do RN"
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: "cover" }}
             priority
+            sizes="100vw"
+            quality={80}
           />
           <div className="absolute inset-0 bg-black/40" />
         </div>
