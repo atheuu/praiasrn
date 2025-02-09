@@ -56,7 +56,7 @@ export function MapSection() {
     script.async = true;
     script.defer = true;
 
-    // Define a função de callback global
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).initMap = initMap;
 
     document.head.appendChild(script);
