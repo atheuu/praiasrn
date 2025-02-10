@@ -3,6 +3,12 @@
 import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 
+declare global {
+  interface Window {
+    initMap: () => void;
+  }
+}
+
 export function MapSection() {
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -11,7 +17,7 @@ export function MapSection() {
     const initMap = () => {
       if (mapRef.current) {
         const map = new google.maps.Map(mapRef.current, {
-          center: { lat: -5.7793, lng: -35.2009 }, // Coordenadas de Natal, RN
+          center: { lat: -5.7793, lng: -35.2009 }, 
           zoom: 10,
           styles: [
             {
@@ -56,13 +62,11 @@ export function MapSection() {
     script.async = true;
     script.defer = true;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).initMap = initMap;
+    window.initMap = initMap;
 
     document.head.appendChild(script);
 
     return () => {
-      // Remove o script ao desmontar o componente
       document.head.removeChild(script);
     };
   }, []);
