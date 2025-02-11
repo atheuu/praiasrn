@@ -10,18 +10,21 @@ import {
   UtensilsCrossed,
   Hotel,
   Waves,
+  Flag,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AnimatedLogo from "@/components/animated-logo";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigation = [
+    { name: "Blog", href: "/blog", icon: MapPin },
+    { name: "Cidades", href: "/cidades", icon: Flag },
     { name: "Pontos Turísticos", href: "/pontos-turisticos", icon: Compass },
     { name: "Restaurantes", href: "/restaurantes", icon: UtensilsCrossed },
     { name: "Pousadas", href: "/pousadas", icon: Hotel },
     { name: "Esportes", href: "/esportes", icon: Waves },
-    { name: "Blog", href: "/blog", icon: MapPin },
   ];
 
   return (
@@ -30,7 +33,7 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link href="/" className="text-2xl font-bold text-primary">
-              Praias RN
+              <AnimatedLogo />
             </Link>
           </div>
 

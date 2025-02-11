@@ -30,7 +30,7 @@ export default function RootLayout({
           enableSystem={false}
         >
           <Header />
-          <main>{children}</main>
+          <main className="pt-16">{children}</main>
           <Footer />
           <Toaster />
         </ThemeProvider>
