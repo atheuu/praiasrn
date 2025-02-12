@@ -95,10 +95,10 @@ function AnimatedLogo() {
   }, [phase, blueText, yellowText, fullBlue, fullYellow]);
 
   return (
-    <Link href="/" className="text-2xl font-bold">
+    <div className="text-2xl font-bold">
       <span className="text-blue-600">{blueText}</span>
       <span className="text-yellow-500">{yellowText}</span>
-    </Link>
+    </div>
   );
 }
 

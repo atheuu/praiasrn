@@ -13,27 +13,32 @@ export function MapSection() {
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Função de inicialização do mapa
     const initMap = () => {
       if (mapRef.current) {
         const map = new google.maps.Map(mapRef.current, {
-          center: { lat: -5.7793, lng: -35.2009 }, 
-          zoom: 10,
-          styles: [
-            {
-              featureType: "water",
-              elementType: "geometry",
-              stylers: [{ color: "#e9e9e9" }, { lightness: 17 }],
+          center: { lat: -5.7793, lng: -35.2009 },
+          zoom: 8,
+          restriction: {
+            latLngBounds: {
+              north: -4.5,
+              south: -6.5,
+              west: -37.5,
+              east: -34.8,
             },
+            strictBounds: true,
+          },
+          styles: [
+            { featureType: "road", stylers: [{ visibility: "off" }] },
+            { featureType: "poi.business", stylers: [{ visibility: "off" }] },
+            { featureType: "transit", stylers: [{ visibility: "off" }] },
+            { featureType: "administrative", stylers: [{ visibility: "off" }] },
             {
-              featureType: "landscape",
-              elementType: "geometry",
-              stylers: [{ color: "#f5f5f5" }, { lightness: 20 }],
+              featureType: "landscape.man_made",
+              stylers: [{ visibility: "off" }],
             },
           ],
         });
 
-        // Adiciona marcadores para locais em destaque
         const locations = [
           { position: { lat: -6.2308, lng: -35.0486 }, title: "Praia de Pipa" },
           {
@@ -43,6 +48,14 @@ export function MapSection() {
           {
             position: { lat: -5.1234, lng: -35.6357 },
             title: "São Miguel do Gostoso",
+          },
+          {
+            position: { lat: -5.45, lng: -35.25 },
+            title: "Parrachos de Maracajaú",
+          },
+          {
+            position: { lat: -5.5146, lng: -35.2625 },
+            title: "Ponte Newton Navarro (Ponto Turístico)",
           },
         ];
 
@@ -56,14 +69,12 @@ export function MapSection() {
       }
     };
 
-    // Carrega o script do Google Maps
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=initMap`;
     script.async = true;
     script.defer = true;
 
     window.initMap = initMap;
-
     document.head.appendChild(script);
 
     return () => {
@@ -73,7 +84,11 @@ export function MapSection() {
 
   return (
     <Card className="p-4">
-      <div ref={mapRef} className="w-full h-[400px] rounded-lg" />
+      <div
+        ref={mapRef}
+        className="w-full h-[400px] rounded-lg"
+        suppressHydrationWarning
+      />
     </Card>
   );
 }
